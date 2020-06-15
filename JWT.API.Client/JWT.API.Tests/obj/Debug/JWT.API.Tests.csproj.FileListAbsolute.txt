@@ -39,3 +39,17 @@ G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\obj\Debug\JWT.API.Tests.cspro
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\obj\Debug\JWT.API.Tests.csproj.CopyComplete
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\obj\Debug\JWT.API.Tests.dll
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\obj\Debug\JWT.API.Tests.pdb
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\WebGrease.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Microsoft.IdentityModel.Logging.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Antlr3.Runtime.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Microsoft.IdentityModel.Logging.xml
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.xml
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\Antlr3.Runtime.pdb
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\System.Web.Http.Cors.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\System.Web.Cors.dll
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API.Tests\bin\Debug\System.Web.Http.Cors.xml
