@@ -90,7 +90,7 @@ G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\Microsoft.IdentityModel.JsonWeb
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\Microsoft.IdentityModel.Logging.xml
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\Microsoft.IdentityModel.Tokens.xml
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\System.IdentityModel.Tokens.Jwt.xml
-G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\obj\Debug\JWT.API.csprojAssemblyReference.cache
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\System.Web.Cors.dll
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\System.Web.Http.Cors.dll
 G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\bin\System.Web.Http.Cors.xml
+G:\Git\JWT.API.Client\JWT.API.Client\JWT.API\obj\Debug\JWT.API.csprojAssemblyReference.cache

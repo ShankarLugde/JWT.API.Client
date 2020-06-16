@@ -19,55 +19,18 @@ namespace JWT.API.Controllers
         }
 
         [HttpPost]
-        [Route("api/Login/Login")]
-        public HttpResponseMessage Login(Login login)
+        [Route("api/Login/GenerateTokenByUser")]
+        public HttpResponseMessage GenerateTokenByUser(Login login)
         {
             HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
-            if (new LoginHelper().Validate_User(login).Rows.Count > 0)
-                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, TokenManager.GenerateToken(login));
+            string error = string.Empty;
+            var result = TokenManager.GenerateToken(login, ref error);
+
+            if (string.IsNullOrEmpty(error))
+                httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, result);
             else
                 httpResponseMessage = Request.CreateResponse(HttpStatusCode.Unauthorized, "User Not Found");
             return httpResponseMessage;
-        }
-
-        [HttpPost]
-        [CustomAuthenticationFilter]
-        [Route("api/Login/GetAllEmp")]
-        public HttpResponseMessage GetAllEmp()
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Get_Emp(new Employee()));
-        }
-
-        [HttpPost]
-        [CustomAuthenticationFilter]
-        [Route("api/Login/GetEmpBy")]
-        public HttpResponseMessage GetEmpBy(Employee employee)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Get_Emp(employee));
-        }
-
-        [HttpPost]
-        [CustomAuthenticationFilter]
-        [Route("api/Login/InsEmp")]
-        public HttpResponseMessage InsEmp(Employee employee)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Ins_Emp(employee));
-        }
-
-        [HttpPost]
-        [CustomAuthenticationFilter]
-        [Route("api/Login/UpdEmp")]
-        public HttpResponseMessage UpdEmp(Employee employee)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Upd_Emp(employee));
-        }
-
-        [HttpPost]
-        [CustomAuthenticationFilter]
-        [Route("api/Login/DelEmp")]
-        public HttpResponseMessage DelEmp(Employee employee)
-        {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Del_Emp(new Employee()));
         }
 
     }

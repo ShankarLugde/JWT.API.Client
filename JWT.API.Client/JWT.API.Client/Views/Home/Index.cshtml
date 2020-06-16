@@ -1,31 +1,99 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model JWT.API.Client.Models.Login
+@{
+    Layout = null;
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!DOCTYPE html>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/Custom.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery-1.12.0.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/Utility.js"></script>
+    <link href="~/Content/CSS/theme.min.css" rel="stylesheet" />
+    <link href="~/Content/CSS/css.css" rel="stylesheet" />
+    <script src="~/Content/JS/theme.min.js"></script>
+</head>
+<body>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <main class="main" id="top">
+            <div class="container-fluid">
+                <div class="row min-vh-100 flex-center no-gutters">
+                    <div class="col-lg-8 col-xxl-5 py-3">
+                        <img class="bg-auth-circle-shape" src="../../assets/img/illustrations/bg-shape.png" alt="" width="250"><img class="bg-auth-circle-shape-2" src="../../assets/img/illustrations/shape-1.png" alt="" width="150">
+                        <div class="card overflow-hidden z-index-1">
+                            <div class="card-body p-0">
+                                <div class="row no-gutters h-100">
+                                    <div class="col-md-5 text-white text-center bg-card-gradient">
+                                        <div class="position-relative p-4 pt-md-5 pb-md-7">
+                                            <div class="bg-holder bg-auth-card-shape" style="background-image:url(../../Content/Images/half-circle.png);"></div>
+                                            <!--/.bg-holder-->
+                                            <div class="z-index-1 position-relative">
+                                                <a class="text-white mb-4 text-sans-serif font-weight-extra-bold fs-4 d-inline-block" href="../../index.html">billing</a>
+                                                <p class="text-white opacity-75">
+                                                    Online billing is one such tool that helps effortlessly
+                                                    send professional invoices to your clients,
+                                                    when it is absolutely essential.<br />
+                                                    - Team <a href="http://www.acoden.com" target="_blank" class="text-light">AcodeN Software</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 mb-4 mt-md-4 mb-md-5">
+                                            <p>Don't have an account?<br><a class="text-white text-underline" href="#">Get started!</a></p>
+                                            @*<p class="mb-0 mt-4 mt-md-5 fs--1 font-weight-semi-bold text-white opacity-75">Read our <a class="text-underline text-white" href="#!">terms</a> and <a class="text-underline text-white" href="#!">conditions </a></p>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 d-flex flex-center">
+                                        <div class="p-4 p-md-5 flex-grow-1">
+
+
+
+                                            <h3>Account Login</h3>
+                                            <form>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+                                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="d-flex justify-content-between">
+                                                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                                                        @*<a class="fs--1" href="../../authentication/card/forgot-password.html">Forgot Password?</a>*@
+                                                    </div>
+                                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary btn-block mt-3" type="submit" name="submit">Log in</button>
+                                                </div>
+                                                @if (@TempData[@JWT.API.Client.Sessions.Error] != null)
+                                                {
+                                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                        @TempData[@JWT.API.Client.Sessions.Error]
+                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                }
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    }
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet">
+</body>
+</html>

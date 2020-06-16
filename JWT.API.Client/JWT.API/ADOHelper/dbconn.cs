@@ -37,7 +37,7 @@ namespace JWT.API.ADOHelper
                 da.Fill(dt);
                 con.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (con.State == ConnectionState.Open)
                 {
@@ -68,7 +68,7 @@ namespace JWT.API.ADOHelper
                 con.Close();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (con.State == ConnectionState.Open)
                 {
@@ -101,7 +101,7 @@ namespace JWT.API.ADOHelper
             {
                 r = cmd.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (con.State != ConnectionState.Closed)
                 {
@@ -134,7 +134,7 @@ namespace JWT.API.ADOHelper
             {
                 r = Convert.ToInt16(cmd.ExecuteScalar());
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 if (con.State != ConnectionState.Closed)
                 {
@@ -184,7 +184,7 @@ namespace JWT.API.ADOHelper
                 }
                 tran.Commit();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 tran.Rollback();
             }

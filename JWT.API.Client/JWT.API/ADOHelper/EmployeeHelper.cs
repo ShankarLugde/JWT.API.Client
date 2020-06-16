@@ -39,13 +39,13 @@ namespace JWT.API.ADOHelper
             cmd.Parameters.AddWithValue("@DateOfBirth", emp.DateOfBirth);
             return _ = objdb.ExecuteNonQuery(cmd);
         }
-        public int Del_Emp(Employee emp)
+        public int Del_Emp(int EmpId)
         {
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "USP_EMP";
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Activity", "DEL");
-            cmd.Parameters.AddWithValue("@EmpId", emp.EmpId);
+            cmd.Parameters.AddWithValue("@EmpId", EmpId);
             return _ = objdb.ExecuteNonQuery(cmd);
         }
         public List<Employee> Get_Emp(Employee emp)

@@ -1,4 +1,5 @@
-﻿using JWT.API.Models;
+﻿using JWT.API.ADOHelper;
+using JWT.API.Models;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,11 @@ namespace JWT.API.JWT
     public class TokenManager
     {
         private static string Secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==";
-        public static Login GenerateToken(Login login)
+        public static Login GenerateToken(Login login, ref string pistrError)
         {
+            pistrError = string.Empty;
+            Login Response = new Login();
+
             byte[] key = Convert.FromBase64String(Secret);
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(key);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
@@ -27,9 +31,41 @@ namespace JWT.API.JWT
 
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
-            login.Token = handler.WriteToken(token);
-            login.Password = null;
-            return login;
+            Response.Token = handler.WriteToken(token);
+            Response.UserName = login.UserName;
+            try
+            {
+                var Userdata = new LoginHelper().Validate_User(login);
+
+                if (Userdata.Rows.Count > 0)
+                {
+                    Response.FirstName = !DBNull.Value.Equals(Userdata.Rows[0]["FirstName"]) ? Userdata.Rows[0]["FirstName"].ToString() : "";
+                    Response.LastName = !DBNull.Value.Equals(Userdata.Rows[0]["LastName"]) ? Userdata.Rows[0]["LastName"].ToString() : "";
+                    Response.RoleName = !DBNull.Value.Equals(Userdata.Rows[0]["RoleName"]) ? Userdata.Rows[0]["RoleName"].ToString() : "";
+                    Response.FullName = Response.FirstName + " " + Response.LastName;
+                    Response.LoginError = new LoginResponseError();
+                }
+                else
+                {
+                    pistrError = "User Not Found !!!";
+                    Response.LoginError = new LoginResponseError()
+                    {
+                        ErrorCode = "100",
+                        ErrorMessage = "User Not Found !!!",
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                pistrError = ex.Message;
+                Response.LoginError = new LoginResponseError()
+                {
+                    ErrorCode = "100",
+                    ErrorMessage = " Error occured at the the time of validate user !!!",
+                };
+            }
+            Response.Password = null;
+            return Response;
         }
         public static ClaimsPrincipal GetPrincipal(string token)
         {

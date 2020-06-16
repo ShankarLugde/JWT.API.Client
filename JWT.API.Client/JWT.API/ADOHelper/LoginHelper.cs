@@ -17,7 +17,7 @@ namespace JWT.API.ADOHelper
             SqlCommand objSqlCommand = new SqlCommand();
             objSqlCommand.CommandText = "User_Login";
             objSqlCommand.CommandType = CommandType.StoredProcedure;
-            objSqlCommand.Parameters.AddWithValue("@User_Name", login.UserName);
+            objSqlCommand.Parameters.AddWithValue("@UserName", login.UserName);
             objSqlCommand.Parameters.AddWithValue("@Password", login.Password);
             objdb.GetDataTable(objSqlCommand, ref dt);
             return dt;

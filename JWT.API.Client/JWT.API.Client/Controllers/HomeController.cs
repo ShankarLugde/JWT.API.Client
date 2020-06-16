@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JWT.API.Client.JWTAPICall;
+using JWT.API.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,21 +12,27 @@ namespace JWT.API.Client.Controllers
     {
         public ActionResult Index()
         {
+            if (Session[Sessions.Error] != null)
+                TempData[Sessions.Error] = Session[Sessions.Error].ToString();
+
+            Session.Abandon();
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Index(Login login)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            var Userdata = TokenManager.GenerateTokenByUser(login);
+            if (string.IsNullOrEmpty(Userdata.LoginError.ErrorMessage))
+            {
+                Session[Sessions.TokenWithUser] = Userdata.Token + ":" + Userdata.UserName;
+                return Redirect("~/Dashboard/Index");
+            }
+            else
+            {
+                TempData[Sessions.Error] = Userdata.LoginError.ErrorMessage;
+                return View(nameof(Index), login);
+            }
         }
     }
 }
