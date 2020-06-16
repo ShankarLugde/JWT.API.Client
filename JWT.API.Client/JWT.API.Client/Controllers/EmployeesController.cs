@@ -1,40 +1,54 @@
-﻿using System;
+﻿using JWT.API.Client.CustomFilters;
+using JWT.API.Client.JWTAPICall;
+using JWT.API.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Utility;
 
 namespace JWT.API.Client.Controllers
 {
+    [CheckSessionFilterAttribute]
     public class EmployeesController : Controller
     {
-        // GET: Employees
         public ActionResult Index()
         {
-            return View();
+            string error = string.Empty;
+            var Userdata = EmployeeManager.GetAllEmp(Helper.GetTokenWithUser(), ref error);
+            if (string.IsNullOrEmpty(error))
+            {
+                return View(Userdata);
+            }
+            else
+            {
+                TempData[Sessions.Error] = error;
+                return View(nameof(Index));
+            }
         }
 
-        // GET: Employees/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Employees/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Employee employee)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                string error = string.Empty;
+                var Userdata = EmployeeManager.InsEmp(ref error,employee, Helper.GetTokenWithUser());
+                if (string.IsNullOrEmpty(error))
+                {
+                    return View();
+                }
+                else
+                {
+                    TempData[Sessions.Error] = error;
+                    return View(nameof(Index));
+                }
             }
             catch
             {
@@ -42,21 +56,40 @@ namespace JWT.API.Client.Controllers
             }
         }
 
-        // GET: Employees/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Employee employee = new Employee();
+            employee.EmpId = id;
+            string error = string.Empty;
+            var Userdata = EmployeeManager.GetEmpBy(ref error ,employee, Helper.GetTokenWithUser());
+            if (string.IsNullOrEmpty(error))
+            {
+                return View(Userdata);
+            }
+            else
+            {
+                TempData[Sessions.Error] = error;
+                return View(nameof(Index));
+            }
         }
 
-        // POST: Employees/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Employee employee)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                string error = string.Empty;
+                employee.EmpId = id;
+                var Userdata = EmployeeManager.UpdEmp(ref error, employee, Helper.GetTokenWithUser());
+                if (string.IsNullOrEmpty(error))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData[Sessions.Error] = error;
+                    return View(nameof(Index));
+                }
             }
             catch
             {
@@ -64,26 +97,28 @@ namespace JWT.API.Client.Controllers
             }
         }
 
-        // GET: Employees/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Employees/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                string error = string.Empty;
+                var Userdata = EmployeeManager.DelEmp(ref error, id, Helper.GetTokenWithUser());
+                if (string.IsNullOrEmpty(error))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData[Sessions.Error] = error;
+                    return View(nameof(Index));
+                }
             }
             catch
             {
                 return View();
             }
         }
+
+
     }
 }

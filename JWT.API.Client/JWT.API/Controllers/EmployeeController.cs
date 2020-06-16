@@ -31,7 +31,7 @@ namespace JWT.API.Controllers
         [Route("api/Employee/GetEmpBy")]
         public HttpResponseMessage GetEmpBy(Employee employee)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Get_Emp(employee));
+            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Get_EmpBy(employee));
         }
 
         [HttpPost]

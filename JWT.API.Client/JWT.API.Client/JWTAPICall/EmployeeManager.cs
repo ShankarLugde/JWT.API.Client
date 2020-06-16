@@ -14,8 +14,9 @@ namespace JWT.API.Client.JWTAPICall
 {
     public class EmployeeManager
     {
-        public static List<Employee> GetAllEmp(string pstrTokenUser)
+        public static List<Employee> GetAllEmp(string pstrTokenUser, ref string pistrerror)
         {
+            pistrerror = string.Empty;
             List<Employee> employees = new List<Employee>();
             try
             {
@@ -41,13 +42,14 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                throw ex;
+                pistrerror = ex.Message;
             }
             return employees;
         }
 
-        public static Employee GetEmpBy(Employee pemployee, string pstrTokenUser)
+        public static Employee GetEmpBy(ref string pistrerror,Employee pemployee, string pstrTokenUser)
         {
+            pistrerror = string.Empty; 
             Employee employee = new Employee();
             try
             {
@@ -73,12 +75,12 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                throw ex;
+                pistrerror =  ex.Message;
             }
             return employee;
         }
 
-        public static int InsEmp(Employee pemployee, string pstrTokenUser)
+        public static int InsEmp(ref string pistrerror,Employee pemployee, string pstrTokenUser)
         {
             int result = 0;
             try
@@ -105,12 +107,12 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                throw ex;
+                pistrerror =  ex.Message;
             }
             return result;
         }
 
-        public static int UpdEmp(Employee pemployee, string pstrTokenUser)
+        public static int UpdEmp(ref string pistrerror,Employee pemployee, string pstrTokenUser)
         {
             int result = 0;
             try
@@ -137,12 +139,12 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                throw ex;
+                pistrerror =  ex.Message;
             }
             return result;
         }
 
-        public static int DelEmp(int pintEmpId, string pstrTokenUser)
+        public static int DelEmp(ref string pistrerror,int pintEmpId, string pstrTokenUser)
         {
             int result = 0;
             try
@@ -169,7 +171,7 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                throw ex;
+                pistrerror =  ex.Message;
             }
             return result;
         }

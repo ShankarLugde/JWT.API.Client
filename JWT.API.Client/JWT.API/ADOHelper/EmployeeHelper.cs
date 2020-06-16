@@ -58,12 +58,28 @@ namespace JWT.API.ADOHelper
             cmd.Parameters.AddWithValue("@FirstName", emp.FirstName);
             cmd.Parameters.AddWithValue("@LastName", emp.LastName);
             cmd.Parameters.AddWithValue("@Mobile", emp.Mobile);
+            cmd.Parameters.AddWithValue("@EmpId", emp.EmpId);
             cmd.Parameters.AddWithValue("@EmailId", emp.EmailId);
             cmd.Parameters.AddWithValue("@Gender", emp.Gender);
-            cmd.Parameters.AddWithValue("@DateOfBirth", emp.DateOfBirth);
             objdb.GetDataTable(cmd, ref dt);
-
             return Utilities.ConvertDataTableToList.ConvertToDataTable<Employee>(dt);
+        }
+
+        public Employee Get_EmpBy(Employee emp)
+        {
+            DataTable dt = new DataTable();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "USP_EMP";
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Activity", "GET");
+            cmd.Parameters.AddWithValue("@FirstName", emp.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", emp.LastName);
+            cmd.Parameters.AddWithValue("@Mobile", emp.Mobile);
+            cmd.Parameters.AddWithValue("@EmpId", emp.EmpId);
+            cmd.Parameters.AddWithValue("@EmailId", emp.EmailId);
+            cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+            objdb.GetDataTable(cmd, ref dt);
+            return Utilities.ConvertDataTableToList.ConvertToDataTable<Employee>(dt)[0];
         }
     }
 }

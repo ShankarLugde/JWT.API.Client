@@ -18,7 +18,6 @@ namespace JWT.API.Client.Controllers
             Session.Abandon();
             return View();
         }
-
         [HttpPost]
         public ActionResult Index(Login login)
         {
@@ -26,6 +25,8 @@ namespace JWT.API.Client.Controllers
             if (string.IsNullOrEmpty(Userdata.LoginError.ErrorMessage))
             {
                 Session[Sessions.TokenWithUser] = Userdata.Token + ":" + Userdata.UserName;
+                Session[Sessions.UserName] = Userdata.UserName;
+                Session[Sessions.RoleName] = Userdata.RoleName;
                 return Redirect("~/Dashboard/Index");
             }
             else
