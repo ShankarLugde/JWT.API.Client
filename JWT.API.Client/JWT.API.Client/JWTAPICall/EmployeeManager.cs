@@ -14,7 +14,7 @@ namespace JWT.API.Client.JWTAPICall
 {
     public class EmployeeManager
     {
-        public static List<Employee> GetAllEmp(string pstrTokenUser, ref string pistrerror)
+        public static List<Employee> GetAllEmp(string pstrTokenUser, ref string pistrerror, ref Employee employee)
         {
             pistrerror = string.Empty;
             List<Employee> employees = new List<Employee>();
@@ -35,9 +35,17 @@ namespace JWT.API.Client.JWTAPICall
 
                 var res = client.PostAsync("api/Employee/GetAllEmp", content).Result;
 
-                if (res.IsSuccessStatusCode)
+                if (res.IsSuccessStatusCode & res.StatusCode == HttpStatusCode.OK)
                 {
-                    employees = JsonConvert.DeserializeObject<List<Employee>>(res.Content.ReadAsStringAsync().Result);
+                    return employees = JsonConvert.DeserializeObject<List<Employee>>(res.Content.ReadAsStringAsync().Result);
+                }
+                if (!res.IsSuccessStatusCode)
+                {
+                    pistrerror = res.ReasonPhrase;
+                    employee.employeeResponseError = new EmployeeResponseError()
+                    {
+                        ErrorMessage = res.ReasonPhrase
+                    };
                 }
             }
             catch (Exception ex)
@@ -47,9 +55,9 @@ namespace JWT.API.Client.JWTAPICall
             return employees;
         }
 
-        public static Employee GetEmpBy(ref string pistrerror,Employee pemployee, string pstrTokenUser)
+        public static Employee GetEmpBy(ref string pistrerror, Employee pemployee, string pstrTokenUser)
         {
-            pistrerror = string.Empty; 
+            pistrerror = string.Empty;
             Employee employee = new Employee();
             try
             {
@@ -75,12 +83,12 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                pistrerror =  ex.Message;
+                pistrerror = ex.Message;
             }
             return employee;
         }
 
-        public static int InsEmp(ref string pistrerror,Employee pemployee, string pstrTokenUser)
+        public static int InsEmp(ref string pistrerror, Employee pemployee, string pstrTokenUser)
         {
             int result = 0;
             try
@@ -107,12 +115,12 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                pistrerror =  ex.Message;
+                pistrerror = ex.Message;
             }
             return result;
         }
 
-        public static int UpdEmp(ref string pistrerror,Employee pemployee, string pstrTokenUser)
+        public static int UpdEmp(ref string pistrerror, Employee pemployee, string pstrTokenUser)
         {
             int result = 0;
             try
@@ -139,12 +147,12 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                pistrerror =  ex.Message;
+                pistrerror = ex.Message;
             }
             return result;
         }
 
-        public static int DelEmp(ref string pistrerror,int pintEmpId, string pstrTokenUser)
+        public static int DelEmp(ref string pistrerror, int pintEmpId, string pstrTokenUser)
         {
             int result = 0;
             try
@@ -171,7 +179,7 @@ namespace JWT.API.Client.JWTAPICall
             }
             catch (Exception ex)
             {
-                pistrerror =  ex.Message;
+                pistrerror = ex.Message;
             }
             return result;
         }

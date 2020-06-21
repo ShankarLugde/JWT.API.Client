@@ -36,6 +36,7 @@ namespace JWT.API.ADOHelper
             cmd.Parameters.AddWithValue("@Mobile", emp.Mobile);
             cmd.Parameters.AddWithValue("@EmailId", emp.EmailId);
             cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+            cmd.Parameters.AddWithValue("@IsActive", emp.IsActive);
             cmd.Parameters.AddWithValue("@DateOfBirth", emp.DateOfBirth);
             return _ = objdb.ExecuteNonQuery(cmd);
         }

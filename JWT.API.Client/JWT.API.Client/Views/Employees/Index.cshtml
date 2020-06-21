@@ -14,73 +14,88 @@
     }
 
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.EmpId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mobile)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
+@if (Model != null && Model.Count() > 0)
+{
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmpId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Mobile)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EmailId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @if (Utility.Helper.RoleRWD() || Utility.Helper.RoleW())
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EmpId }, new { @class = "btn btn-primary" })
-                }
-                @if (Utility.Helper.RoleRWD() || Utility.Helper.RoleD())
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.EmpId }, new { @class = "btn btn-primary" })
-                }
-            </td>
+            @*<th>
+                @Html.DisplayNameFor(model => model.EmpId)
+            </th>*@
+            <th>
+                @Html.ActionLink("First Name", "Index", new { Sorting_Order = ViewBag.SortingName })
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.EmpId)
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mobile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @if (Utility.Helper.RoleRWD() || Utility.Helper.RoleW())
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.EmpId }, new { @class = "btn btn-primary" })
+                    }
+                    @if (Utility.Helper.RoleRWD() || Utility.Helper.RoleD())
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EmpId },
+                         new { @class = "btn btn-primary", onclick = "return confirm('Are sure wants to delete?');" })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@if (@TempData[@JWT.API.Client.Sessions.Error] != null)
+{
+    <div>
+        @TempData[@JWT.API.Client.Sessions.Error]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}

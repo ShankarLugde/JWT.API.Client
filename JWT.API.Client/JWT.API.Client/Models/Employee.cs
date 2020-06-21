@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 namespace JWT.API.Client.Models
@@ -15,5 +16,12 @@ namespace JWT.API.Client.Models
         public string Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public bool IsActive { get; set; }
+        public EmployeeResponseError employeeResponseError { get; set; }
+
+    }
+
+    public class EmployeeResponseError
+    {
+        public string ErrorMessage { get; set; }
     }
 }

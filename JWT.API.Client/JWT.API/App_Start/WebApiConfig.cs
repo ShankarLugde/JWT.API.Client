@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JWT.API.Client.CustomFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -10,9 +11,8 @@ namespace JWT.API
     {
         public static void Register(HttpConfiguration config)
         {
-            EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*");
+            EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
-
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -20,6 +20,7 @@ namespace JWT.API
                 routeTemplate: "api/Values/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            //config.Filters.Add(new CustomExceptionFilter());
         }
     }
 }

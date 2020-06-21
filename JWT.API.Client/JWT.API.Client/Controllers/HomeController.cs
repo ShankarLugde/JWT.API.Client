@@ -26,6 +26,7 @@ namespace JWT.API.Client.Controllers
             {
                 Session[Sessions.TokenWithUser] = Userdata.Token + ":" + Userdata.UserName;
                 Session[Sessions.UserName] = Userdata.UserName;
+                Session[Sessions.UserFullName] = Userdata.FirstName + " " + Userdata.LastName;
                 Session[Sessions.RoleName] = Userdata.RoleName;
                 return Redirect("~/Dashboard/Index");
             }

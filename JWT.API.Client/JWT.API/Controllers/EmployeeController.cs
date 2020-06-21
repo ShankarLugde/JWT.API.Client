@@ -1,4 +1,5 @@
 ﻿using JWT.API.ADOHelper;
+using JWT.API.Client.CustomFilters;
 using JWT.API.CustomFilters;
 using JWT.API.Models;
 using System;
@@ -13,18 +14,29 @@ namespace JWT.API.Controllers
     [CustomAuthenticationFilter]
     public class EmployeeController : ApiController
     {
-        
         [Route("api/Employee/Get")]
         public string Get()
         {
             return "Employee Controller are Ready !!!!";
         }
 
-        [HttpPost]        
+        [HttpPost]
         [Route("api/Employee/GetAllEmp")]
         public HttpResponseMessage GetAllEmp()
         {
-            return Request.CreateResponse(HttpStatusCode.OK, new EmployeeHelper().Get_Emp(new Employee()));
+            var data = new EmployeeHelper().Get_Emp(new Employee());
+            if (data != null && data.Count > 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            else
+            {
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    ReasonPhrase = "Internal Server Error.Please Contact your Administrator."
+                };
+                return response;
+            }
         }
 
         [HttpPost]

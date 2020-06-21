@@ -15,15 +15,17 @@ namespace JWT.API.Client.Controllers
     {
         public ActionResult Index()
         {
-            string error = string.Empty;
-            var Userdata = EmployeeManager.GetAllEmp(Helper.GetTokenWithUser(), ref error);
-            if (string.IsNullOrEmpty(error))
+            string error = string.Empty;//For interal Use
+            Employee employee = new Employee(); // This for Custome msg for End user
+
+            var Userdata = EmployeeManager.GetAllEmp(Helper.GetTokenWithUser(), ref error, ref employee);
+            if (string.IsNullOrEmpty(error) && string.IsNullOrEmpty(employee?.employeeResponseError?.ErrorMessage))
             {
                 return View(Userdata);
             }
             else
             {
-                TempData[Sessions.Error] = error;
+                TempData[Sessions.Error] = employee?.employeeResponseError?.ErrorMessage;
                 return View(nameof(Index));
             }
         }
@@ -39,7 +41,7 @@ namespace JWT.API.Client.Controllers
             try
             {
                 string error = string.Empty;
-                var Userdata = EmployeeManager.InsEmp(ref error,employee, Helper.GetTokenWithUser());
+                var Userdata = EmployeeManager.InsEmp(ref error, employee, Helper.GetTokenWithUser());
                 if (string.IsNullOrEmpty(error))
                 {
                     return View();
@@ -61,7 +63,7 @@ namespace JWT.API.Client.Controllers
             Employee employee = new Employee();
             employee.EmpId = id;
             string error = string.Empty;
-            var Userdata = EmployeeManager.GetEmpBy(ref error ,employee, Helper.GetTokenWithUser());
+            var Userdata = EmployeeManager.GetEmpBy(ref error, employee, Helper.GetTokenWithUser());
             if (string.IsNullOrEmpty(error))
             {
                 return View(Userdata);
