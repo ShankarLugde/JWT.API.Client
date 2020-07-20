@@ -15,8 +15,10 @@ namespace JWT.API.Client.CustomFilters
         {
             if (filterContext.HttpContext.Session[Sessions.TokenWithUser] == null)
             {
+                filterContext.RequestContext.HttpContext.Response.Write("<!-- X -->");
+
                 filterContext.HttpContext.Session[Sessions.Error] = "Your session has been expired, please login again.";
-                filterContext.Result = new RedirectResult("~/Home/Index");
+                //filterContext.Result = new RedirectResult("~/Home/Index");
             }
             base.OnActionExecuting(filterContext);
         }

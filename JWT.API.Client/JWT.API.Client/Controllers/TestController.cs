@@ -6,12 +6,40 @@ using System.Web.Mvc;
 
 namespace JWT.API.Client.Controllers
 {
+    [RoutePrefix("Mama")]
     public class TestController : Controller
     {
         // GET: Test
+        [Route("ok")]
         public ActionResult Index()
+        
         {
-            return View();
+            TestController testController = new TestController();
+            var res = testController.GetAllEmp().Single(x => x.Name == "Nilesh");
+            var res1 = testController.GetAllEmp().SingleOrDefault(x => x.Name == "jj");
+            return View(res);
+        }
+
+        public IEnumerable<Employee> GetAllEmp()
+        {
+            IEnumerable<Employee> developers = new Employee[] {
+                new Employee {
+                    Id = 101, Name = "Ashutosh"
+                },
+                new Employee {
+                    Id = 102, Name = "Nilesh"
+                },
+                new Employee {
+                    Id = 103, Name = "Amar"
+                },
+                new Employee {
+                    Id = 104, Name = "Ashutosh"
+                },
+                new Employee {
+                    Id = 105, Name = "Ashutosh"
+                }
+            };
+            return developers;
         }
 
         // GET: Test/Details/5
@@ -85,5 +113,14 @@ namespace JWT.API.Client.Controllers
                 return View();
             }
         }
+
+        public class Employee
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
     }
 }
+
+
